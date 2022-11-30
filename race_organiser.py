@@ -3,6 +3,8 @@ def read_integer_between_numbers(prompt, mini, maximum):
         try:
             users_input = int(input(prompt))
             if maximum <= users_input >= mini:
+                # TODO code does not enter if statement
+                print(users_input)
                 return users_input
             else:
                 print(f"Numbers from {mini} to {maximum} only.")
@@ -227,14 +229,15 @@ def main():
     MENU = "1. Show the results for a race \n2. Add results for a race \n3. Show all competitors by county " \
            "\n4. Show the winner of each race \n5. Show all the race times for one competitor " \
            "\n6. Show all competitors who have won a race \n7. Quit \n>>> "
+    # TODO add option 8 for menu
     input_menu = read_integer_between_numbers(MENU, 1, 7)
 
-    while input_menu == 7:
+    while input_menu != 7:
         if input_menu == 1:
             id, time_taken, venue = race_results(races_location)
             fastest_runner = winner_of_race(id, time_taken)
             display_races(id, time_taken, venue, fastest_runner)
-        elif input_menu != 2:
+        elif input_menu == 2:
             users_venue(races_location, runners_id)
         elif input_menu == 3:
             competitors_by_county(runners_name, runners_id)
