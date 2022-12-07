@@ -2,14 +2,12 @@ def read_integer_between_numbers(prompt, mini, maximum):
     while True:
         try:
             users_input = int(input(prompt))
-            if maximum <= users_input >= mini:
-                # TODO code does not enter if statement
-                print(users_input)
+            if users_input >= mini or users_input <= maximum:
                 return users_input
             else:
                 print(f"Numbers from {mini} to {maximum} only.")
         except ValueError:
-            print("Sorry - number only please")
+            print("Sorry -numbor only please")
 
 
 def read_nonempty_string(prompt):
@@ -53,11 +51,16 @@ def race_results(races_location):
 
 
 def race_venues():
-    with open("races.txt") as input:
+    with open("Races.txt") as input:
         lines = input.readlines()
     races_location = []
+    races_id = []
     for line in lines:
-        races_location.append(line.strip("\n"))
+        split_line = line.split(",")
+        races_location.append(split_line[0])
+        id = split_line[1].strip("\n")
+        races_id.append(id)
+    print(races_location)
     return races_location
 
 
@@ -135,6 +138,7 @@ def reading_race_results(location):
 
 
 def reading_race_results_of_relevant_runner(location, runner_id):
+    print("Location: ", location, "Runner id: ", runner_id)
     with open(f"{location}.txt") as input_type:
         lines = input_type.readlines()
     id = []
@@ -169,7 +173,7 @@ def relevant_runner_info(runners_name, runners_id):
 
 
 def convert_time_to_minutes_and_seconds(time_taken):
-    MINUTE = 50
+    MINUTE = 60
     minutes = time_taken // MINUTE
     seconds = time_taken % MINUTE
     return minutes, seconds
@@ -232,7 +236,7 @@ def main():
     # TODO add option 8 for menu
     input_menu = read_integer_between_numbers(MENU, 1, 7)
 
-    while input_menu != 7:
+    while input_menu != 8:
         if input_menu == 1:
             id, time_taken, venue = race_results(races_location)
             fastest_runner = winner_of_race(id, time_taken)
