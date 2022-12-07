@@ -51,7 +51,7 @@ def race_results(races_location):
 
 
 def race_venues():
-    with open("races.txt") as input:
+    with open("Races.txt") as input:
         lines = input.readlines()
     races_location = []
     for line in lines:
@@ -167,7 +167,7 @@ def relevant_runner_info(runners_name, runners_id):
 
 
 def convert_time_to_minutes_and_seconds(time_taken):
-    MINUTE = 50
+    MINUTE = 60
     minutes = time_taken // MINUTE
     seconds = time_taken % MINUTE
     return minutes, seconds
@@ -230,7 +230,7 @@ def main():
     # TODO add option 8 for menu
     input_menu = read_integer_between_numbers(MENU, 1, 7)
 
-    while input_menu != 7:
+    while input_menu != 8:
         if input_menu == 1:
             id, time_taken, venue = race_results(races_location)
             fastest_runner = winner_of_race(id, time_taken)
