@@ -54,8 +54,13 @@ def race_venues():
     with open("Races.txt") as input:
         lines = input.readlines()
     races_location = []
+    races_id = []
     for line in lines:
-        races_location.append(line.strip("\n"))
+        split_line = line.split(",")
+        races_location.append(split_line[0])
+        id = split_line[1].strip("\n")
+        races_id.append(id)
+    print(races_location)
     return races_location
 
 
@@ -133,6 +138,7 @@ def reading_race_results(location):
 
 
 def reading_race_results_of_relevant_runner(location, runner_id):
+    print("Location: ", location, "Runner id: ", runner_id)
     with open(f"{location}.txt") as input_type:
         lines = input_type.readlines()
     id = []
