@@ -2,14 +2,12 @@ def read_integer_between_numbers(prompt, mini, maximum):
     while True:
         try:
             users_input = int(input(prompt))
-            if maximum <= users_input >= mini:
-                # TODO code does not enter if statement
-                print(users_input)
+            if users_input >= mini or users_input <= maximum:
                 return users_input
             else:
                 print(f"Numbers from {mini} to {maximum} only.")
         except ValueError:
-            print("Sorry - number only please")
+            print("Sorry -numbor only please")
 
 
 def read_nonempty_string(prompt):
