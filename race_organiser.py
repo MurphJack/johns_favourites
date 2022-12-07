@@ -147,14 +147,13 @@ def reading_race_results_of_relevant_runner(location, runner_id):
         id.append(split_line[0])
         time_taken.append(int(split_line[1].strip("\n")))
     for i in range(len(id)):
-        if runner_id == id[i]:
-            time_relevant_runner = time_taken[i]
-            return time_relevant_runner
+        time_relevant_runner = time_taken[i]
+        return time_relevant_runner
     return None
 
 
 def displaying_winners_of_each_race(races_location):
-    print("Venue             Looser")
+    print("Venue             Winner")
     print("="*24)
     for i in range(len(races_location)):
         id, time_taken = reading_race_results(races_location[i])
