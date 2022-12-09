@@ -65,11 +65,32 @@ def race_venues():
 
 def winner_of_race(id, time_taken):
     quickest_time = min(time_taken)
+    if quickest_time == 0:
+        id.pop(time_taken.index(quickest_time))
+        time_taken.remove(quickest_time)
+        quickest_time = min(time_taken)
     winner = ""
     for i in range(len(id)):
         if quickest_time == time_taken[i]:
             winner = id[i]
     return winner
+
+
+def race_podium(id, time_taken):
+    quickest_time = min(time_taken)
+    if quickest_time == 0:
+        id.pop(time_taken.index(quickest_time))
+        time_taken.remove(quickest_time)
+        quickest_time = min(time_taken)
+    sorted_times = time_taken.copy()
+    sorted_times.sort()
+    quickest_times = sorted_times[:3]
+    podium = []
+    for i, time in enumerate(sorted_times):
+        for j in range(len(quickest_times)):
+            if time == quickest_times[j]:
+                podium.append(id[time_taken.index(time)])
+    return podium
 
 
 def display_races(id, time_taken, venue, fastest_runner):
@@ -223,6 +244,16 @@ def displaying_runners_who_have_won_at_least_one_race(races_location, runners_na
             runners.append(name_of_runner)
     for i, fastest_runner in enumerate(winners):
         print(f"{runners[i]} ({fastest_runner})")
+        
+        
+def displaying_podium_places(races_location):
+    for i in range(len(races_location)):
+        id, time_taken = reading_race_results(races_location[i])
+        if time_taken is not None:
+            podium = race_podium(id, time_taken)
+            print(f"Podium places for {races_location[i]}")
+            for i, id in enumerate(podium):
+                print(f"{i + 1} {id}")
 
 
 def main():
@@ -236,7 +267,6 @@ def main():
            "6. Show all the race times for one competitor\n" \
            "7. Show all competitors who have won a race\n" \
            "8. Quit \n>>> "
-    # TODO add option 8 for menu
     input_menu = read_integer_between_numbers(MENU, 1, 8)
 
     while input_menu != 8:
@@ -249,7 +279,7 @@ def main():
         elif input_menu == 3:
             competitors_by_county(runners_name, runners_id)
         elif input_menu == 4:
-            pass
+            displaying_podium_places(races_location)
         elif input_menu == 5:
             displaying_winners_of_each_race(races_location)
         elif input_menu == 6:
